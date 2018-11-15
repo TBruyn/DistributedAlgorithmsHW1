@@ -1,8 +1,8 @@
-import java.sql.Time;
-
 public class Clock {
 
+    /** access must be synchronized */
     private Timestamp time;
+    private int ownerPid;
 
     public Clock() {
 
