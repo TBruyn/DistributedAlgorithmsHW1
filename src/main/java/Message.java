@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Message implements Comparable{
+public class Message implements Comparable<Message> {
     private final int sender;
     private final Timestamp timestamp;
 
@@ -32,7 +32,11 @@ public class Message implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Message other) {
+        Timestamp otherStamp = other.getTimestamp();
+        if (this.timestamp.compareTo(otherStamp) != 0)
+            return this.timestamp.compareTo(otherStamp);
+        else if (sender == other.getSender()) return 0;
+        else return sender > other.getSender() ? 1 : -1;
     }
 }
