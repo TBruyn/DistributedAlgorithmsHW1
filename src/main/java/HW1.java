@@ -41,7 +41,7 @@ public class HW1 implements HW1Interface{
      * the client-side work of it
      */
     private void startProcess() {
-
+        new MessageGenerator(numProcesses, pid, clock).run();
     }
 
     /**

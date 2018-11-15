@@ -41,6 +41,7 @@ public class Main {
         String classpath = System.getProperty("java.class.path");
         String path = System.getProperty("java.home")
                 + separator + "bin" + separator + "java";
+        String codebase = "Djava.rmi.server.codebase=http://mycomputer/~ann/classes/compute.jar";
         ProcessBuilder processBuilder =
                 new ProcessBuilder(path, "-cp",
                         classpath,
