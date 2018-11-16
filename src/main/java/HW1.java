@@ -40,7 +40,7 @@ public class HW1 implements HW1Interface{
      * this should start the generation of messages of the process:
      * the client-side work of it
      */
-    private void startProcess() {
+    public void startProcess() {
         new MessageGenerator(numProcesses, pid, clock).run();
     }
 
@@ -50,17 +50,17 @@ public class HW1 implements HW1Interface{
      * @param args two integers: pid of process to be set up and the total amount of processes
      */
     public static void main(String[] args) {
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new SecurityManager());
+//        }
         String name = args[0];
         String numProcs = args[1];
-        int pid = Integer.getInteger(name);
-        int numP = Integer.getInteger(numProcs);
+        int pid = Integer.parseInt(name);
+        int numP = Integer.parseInt(numProcs);
 
         try {
             HW1 process = new HW1(pid, numP);
-            HW1 stub = (HW1) UnicastRemoteObject.exportObject(process, 0);
+            HW1Interface stub = (HW1Interface) UnicastRemoteObject.exportObject(process, 0);
             Registry registry = LocateRegistry.getRegistry();
             registry.rebind(name, stub);
             System.out.println(String.format("Process %s bound", name));
