@@ -24,6 +24,7 @@ public class Buffer {
 
             if (message.equals(messageQueue.get(0)) && ackMap.get(message) == numProc) {
                 messageQueue.remove(message);
+                ackMap.remove(message);
             }
         }
     }
