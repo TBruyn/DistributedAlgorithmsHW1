@@ -11,6 +11,7 @@ public class BufferTest {
     @Test
     void testGet() {
         Buffer buffer = new Buffer(3);
+
         assertEquals(3, buffer.getNumberOfProcesses());
         assertTrue(buffer.getMessageQueue().isEmpty());
         assertTrue(buffer.getAcknowledgementMap().isEmpty());
@@ -20,7 +21,7 @@ public class BufferTest {
     void testAddMessage() {
         Buffer buffer = new Buffer(3);
 
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
 
         buffer.addMessage(message);
 
@@ -44,17 +45,17 @@ public class BufferTest {
 
         List<Message> messageQueue = buffer.getMessageQueue();
 
-        assertEquals(first, messageQueue.get(0));
-        assertEquals(second, messageQueue.get(1));
-        assertEquals(third, messageQueue.get(2));
-        assertEquals(fourth, messageQueue.get(3));
+        assertEquals(first,     messageQueue.get(0));
+        assertEquals(second,    messageQueue.get(1));
+        assertEquals(third,     messageQueue.get(2));
+        assertEquals(fourth,    messageQueue.get(3));
     }
 
     @Test
     void testAddAcknowledgementSimple() {
         Buffer buffer = new Buffer(3);
 
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);
@@ -72,7 +73,7 @@ public class BufferTest {
     void testAddAcknowledgementMessageDoesNotExist() {
         Buffer buffer = new Buffer(3);
 
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addAcknowledgement(acknowledgement);
@@ -85,7 +86,7 @@ public class BufferTest {
     void testAddAcknowledgementTwice() {
         Buffer buffer = new Buffer(3);
 
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);
@@ -104,7 +105,7 @@ public class BufferTest {
     void testAddAcknowledgementLast() {
         Buffer buffer = new Buffer(3);
 
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);

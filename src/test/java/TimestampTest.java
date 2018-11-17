@@ -11,6 +11,7 @@ public class TimestampTest {
     public void testGet() {
         int[] array = {2, 3, 4, 5};
         Timestamp stamp = new Timestamp(array);
+
         assertTrue(Arrays.equals(array, stamp.getTime()));
     }
 

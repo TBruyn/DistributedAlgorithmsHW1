@@ -8,9 +8,9 @@ public class Buffer {
     private int numProc;
 
     public Buffer(int numProcesses) {
-        this.numProc = numProcesses;
-        messageQueue = new ArrayList<>();
-        ackMap = new HashMap<>();
+        this.numProc    = numProcesses;
+        messageQueue    = new ArrayList<>();
+        ackMap          = new HashMap<>();
     }
 
     public void addAcknowledgement(Acknowledgement a) {
@@ -18,11 +18,11 @@ public class Buffer {
         if (!ackMap.containsKey(message))
             ackMap.put(message, 1);
         else {
-            ackMap.replace(
-                    message,
-                    ackMap.get(message) + 1  );
+            ackMap.replace( message,
+                            ackMap.get(message) + 1  );
 
-            if (message.equals(messageQueue.get(0)) && ackMap.get(message) == numProc) {
+            if (message.equals(messageQueue.get(0))
+                    && ackMap.get(message) == numProc) {
                 messageQueue.remove(message);
                 ackMap.remove(message);
             }
