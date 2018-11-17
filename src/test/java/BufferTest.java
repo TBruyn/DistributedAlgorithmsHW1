@@ -54,4 +54,17 @@ public class BufferTest {
         assertEquals(Integer.valueOf(1), buffer.getAcknowledgementMap().get
                 (message));
     }
+
+    @Test
+    void testAddAcknowledgementMessageDoesNotExist() {
+        Buffer buffer = new Buffer(3);
+
+        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Acknowledgement acknowledgement = new Acknowledgement(message);
+
+        buffer.addAcknowledgement(acknowledgement);
+
+        assertEquals(Integer.valueOf(1), buffer.getAcknowledgementMap().get
+                (message));
+    }
 }
