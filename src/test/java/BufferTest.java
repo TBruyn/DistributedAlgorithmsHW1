@@ -16,7 +16,7 @@ public class BufferTest {
     }
 
     @Test
-    void addMessage() {
+    void testAddMessage() {
         Buffer buffer = new Buffer(3);
 
         Message first   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
@@ -35,5 +35,23 @@ public class BufferTest {
         assertEquals(second, messageQueue.get(1));
         assertEquals(third, messageQueue.get(2));
         assertEquals(fourth, messageQueue.get(3));
+    }
+
+    @Test
+    void testAddAcknowledgementSimple() {
+        Buffer buffer = new Buffer(3);
+
+        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Acknowledgement acknowledgement = new Acknowledgement(message);
+
+        buffer.addMessage(message);
+
+        assertEquals(Integer.valueOf(0), buffer.getAcknowledgementMap().get
+                (message));
+
+        buffer.addAcknowledgement(acknowledgement);
+
+        assertEquals(Integer.valueOf(1), buffer.getAcknowledgementMap().get
+                (message));
     }
 }
