@@ -27,13 +27,13 @@ public class HW1 implements HW1Interface{
 
     @Override
     public void addMessage(Message m) {
-        messageBuffer.addMsg(m);
+        messageBuffer.addMessage(m);
         clock.receiveUpdate(m);
     }
 
     @Override
     public void addAck(Acknowledgement a) {
-        messageBuffer.addAck(a);
+        messageBuffer.addAcknowledgement(a);
     }
 
     /**
