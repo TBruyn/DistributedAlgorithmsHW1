@@ -6,17 +6,9 @@ public class AcknowledgementTest {
 
     @Test
     void testGet() {
-        Timestamp stamp = new Timestamp(new int[]{1, 2, 3});
-        int id = 3;
-        Acknowledgement message = new Acknowledgement(id, stamp);
-        assertEquals(id, message.getMessageSender());
-        assertEquals(stamp, message.getTimestamp());
+        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Acknowledgement acknowledgement = new Acknowledgement(message);
+        assertEquals(message, acknowledgement.getMessage());
     }
 
-    @Test
-    void testEquals() {
-        Acknowledgement first = new Acknowledgement(1, new Timestamp(new int[]{1, 2, 3}));
-        Acknowledgement second = new Acknowledgement(1, new Timestamp(new int[]{1, 2, 3}));
-        assertEquals(first, second);
-    }
 }
