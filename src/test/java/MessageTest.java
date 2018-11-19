@@ -5,7 +5,7 @@ public class MessageTest {
 
     @Test
     void testGet() {
-        Timestamp stamp = new Timestamp(new int[]{1, 2, 3});
+        int stamp = 5;
         int id = 3;
         Message message = new Message(id, stamp);
 
@@ -15,32 +15,32 @@ public class MessageTest {
 
     @Test
     void testEquals() {
-        Message first   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
-        Message second  = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message first   = new Message(1, 5);
+        Message second  =  new Message(1, 5);
 
         assertEquals(first, second);
     }
 
     @Test
     void testCompareToEquals() {
-        Message first   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
-        Message second  = new Message(1, new Timestamp(new int[]{3, 2, 1}));
+        Message first   = new Message(1, 5);
+        Message second  = new Message(1, 5);
 
         assertEquals(0, first.compareTo(second));
     }
 
     @Test
     void testCompareToUnequalStamp() {
-        Message bigger  = new Message(1, new Timestamp(new int[]{2, 3, 4}));
-        Message smaller = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message bigger  = new Message(1, 5);
+        Message smaller = new Message(1, 2);
 
         assertEquals(1,     bigger.compareTo(smaller));
         assertEquals(-1,    smaller.compareTo(bigger));
     }
     @Test
     void testCompareToEqualStampUnequalId() {
-        Message bigger  = new Message(2, new Timestamp(new int[]{3, 2, 1}));
-        Message smaller = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message bigger  = new Message(2, 5);
+        Message smaller = new Message(1, 5);
 
         assertEquals(1,     bigger.compareTo(smaller));
         assertEquals(-1,    smaller.compareTo(bigger));

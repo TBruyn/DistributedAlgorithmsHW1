@@ -1,7 +1,8 @@
 public class Clock {
 
     /** access must be synchronized */
-    private Timestamp time;
+    private int counter;
+    private int time;
     private int ownerPid;
 
     public Clock() {
@@ -11,7 +12,7 @@ public class Clock {
 
     }
 
-    public Timestamp createUpdate() {
+    public int createUpdate() {
         return time;
     }
 }
