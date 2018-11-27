@@ -6,7 +6,7 @@ public class AcknowledgementTest {
 
     @Test
     void testGet() {
-        Message message   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message   = new Message(1,5);
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         assertEquals(message, acknowledgement.getMessage());
