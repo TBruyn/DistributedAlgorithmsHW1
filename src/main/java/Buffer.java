@@ -33,6 +33,7 @@ public class Buffer {
      * @param a
      */
     public void addAcknowledgement(Acknowledgement a) {
+        logger.info(String.format("reveive ack %s", a.toString()));
         Message message = a.getMessage();
         // lock object when processing acknowledgment
         synchronized (this) {

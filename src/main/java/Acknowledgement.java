@@ -10,4 +10,9 @@ public class Acknowledgement implements Serializable {
     public Message getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Ack"+message.toString());
+    }
 }
