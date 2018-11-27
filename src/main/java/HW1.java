@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -20,14 +23,14 @@ public class HW1 implements HW1Interface{
         this.pid = pid;
         this.numProcesses = amount;
         clock = new Clock(pid);
-        messageBuffer = new Buffer(numProcesses);
+        messageBuffer = new Buffer(pid, numProcesses);
     }
 
     @Override
     public void addMessage(Message m) {
-        System.out.println(String.format("p%d receives %s", pid, m.toString()));
-//        messageBuffer.addMessage(m);
-//        clock.receiveUpdate(m);
+//        System.out.println(String.format("p%d receives %s", pid, m.toString()));
+        clock.receiveUpdate(m);
+        messageBuffer.addMessage(m);
     }
 
     @Override
