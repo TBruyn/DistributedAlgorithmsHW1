@@ -33,6 +33,7 @@ public class Buffer {
      * @param a
      */
     public void addAcknowledgement(Acknowledgement a) {
+        logger.info(String.format("reveive ack %s", a.toString()));
         Message message = a.getMessage();
         // if first ack of msg create entry in ackmap
         if (!ackMap.containsKey(message))

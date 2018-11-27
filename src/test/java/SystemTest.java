@@ -12,7 +12,7 @@ public class SystemTest {
 
     @Test
     void test() {
-        int numberProcesses = 3;
+        int numberProcesses = 6;
 
         /** create the registry */
         try {
@@ -32,7 +32,7 @@ public class SystemTest {
 
         //Let processes run
         try {
-            Thread.sleep(30*1000);
+            Thread.sleep(120*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
