@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Message implements Comparable<Message> {
+public class Message implements Comparable<Message>, Serializable {
     private final int sender;
-    private final Timestamp timestamp;
+    private final int timestamp;
 
-    public Message(int sender, Timestamp timestamp) {
+    public Message(int sender, int timestamp) {
         this.sender = sender;
         this.timestamp = timestamp;
     }
@@ -13,7 +14,7 @@ public class Message implements Comparable<Message> {
         return sender;
     }
 
-    public Timestamp getTimestamp() {
+    public int getTimestamp() {
         return timestamp;
     }
 
@@ -23,7 +24,7 @@ public class Message implements Comparable<Message> {
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
         return sender == message.getSender() &&
-                Objects.equals(timestamp, message.getTimestamp());
+                timestamp == message.timestamp;
     }
 
     @Override
@@ -33,10 +34,22 @@ public class Message implements Comparable<Message> {
 
     @Override
     public int compareTo(Message other) {
-        Timestamp otherStamp = other.getTimestamp();
-        if (this.timestamp.compareTo(otherStamp) != 0)
-            return this.timestamp.compareTo(otherStamp);
-        else if (sender == other.getSender()) return 0;
-        else return sender > other.getSender() ? 1 : -1;
+        if (this.timestamp < other.getTimestamp())
+            return -1;
+        else if (this.timestamp > other.getTimestamp())
+            return 1;
+        else {
+            if (this.sender < other.getSender())
+                return -1;
+            else if (this.sender > other.getSender())
+                return 1;
+            else
+                return 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(sender: %d, ts: %d)", sender, timestamp);
     }
 }

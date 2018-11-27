@@ -9,7 +9,6 @@ public class HW1 implements HW1Interface{
     private Buffer messageBuffer;
     private int pid;
     private int numProcesses;
-    private Registry registry;
 
     /**
      * pid is process' own id and amount declares there exist processes 0..amount-1
@@ -20,15 +19,15 @@ public class HW1 implements HW1Interface{
     public HW1(int pid, int amount) throws RemoteException {
         this.pid = pid;
         this.numProcesses = amount;
-        registry = LocateRegistry.getRegistry();
-        clock = new Clock();
+        clock = new Clock(pid);
         messageBuffer = new Buffer(numProcesses);
     }
 
     @Override
     public void addMessage(Message m) {
-        messageBuffer.addMessage(m);
-        clock.receiveUpdate(m);
+        System.out.println(String.format("p%d receives %s", pid, m.toString()));
+//        messageBuffer.addMessage(m);
+//        clock.receiveUpdate(m);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class HW1 implements HW1Interface{
      * the client-side work of it
      */
     public void startProcess() {
-        new MessageGenerator(numProcesses, pid, clock).run();
+        new Thread(new MessageGenerator(numProcesses, pid, clock)).start();
     }
 
     /**

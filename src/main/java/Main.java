@@ -5,11 +5,11 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Main {
+
     /**
      * this should do the following:
      * 1. setup the rmi registry
-     * 2. run all processes on different JVMs
-     *
+     * 2. run all processes on different JVMs (or threads)
      * @param args number of processes
      */
     public static void main(String[] args) {
@@ -37,6 +37,30 @@ public class Main {
         System.out.println("launched all processes");
         while (true) {}
     }
+
+
+
+    /**
+     * launch process in the same jvm in another thread
+     * @param pid
+     * @param n
+     */
+    private static void launchInThread(int pid, int n) {
+        new Thread(() -> {
+            try {
+                HW1 process = new HW1(pid, n);
+                HW1Interface stub = (HW1Interface) UnicastRemoteObject.exportObject(process, 0);
+                Registry registry = LocateRegistry.getRegistry();
+                registry.rebind(String.valueOf(pid), stub);
+                System.out.println(String.format("Process %s bound", String.valueOf(pid)));
+                process.startProcess();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
 
     /**
      * launch the process with id i
@@ -69,26 +93,5 @@ public class Main {
         Process process = pb.inheritIO().start();
         process.waitFor();
         System.out.println(String.format("launched %d", pid));
-    }
-
-    /**
-     * launch process in the same jvm in another thread
-     * @param pid
-     * @param n
-     */
-    private static void launchInThread(int pid, int n) {
-        new Thread(() -> {
-            try {
-                HW1 process = new HW1(pid, n);
-                HW1Interface stub = (HW1Interface) UnicastRemoteObject.exportObject(process, 0);
-                Registry registry = LocateRegistry.getRegistry();
-                registry.rebind(String.valueOf(pid), stub);
-                System.out.println(String.format("Process %s bound", String.valueOf(pid)));
-                process.startProcess();
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 }
