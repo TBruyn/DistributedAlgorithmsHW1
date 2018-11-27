@@ -21,7 +21,7 @@ public class BufferTest {
     void testAddMessage() {
         Buffer buffer = new Buffer(3);
 
-        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, 5);
 
         buffer.addMessage(message);
 
@@ -33,10 +33,10 @@ public class BufferTest {
     void testAddMessageSort() {
         Buffer buffer = new Buffer(3);
 
-        Message first   = new Message(1, new Timestamp(new int[]{1, 2, 3}));
-        Message second  = new Message(1, new Timestamp(new int[]{2, 3, 4}));
-        Message third   = new Message(2, new Timestamp(new int[]{2, 3, 4}));
-        Message fourth  = new Message(1, new Timestamp(new int[]{3, 4, 5}));
+        Message first   = new Message(1, 1);
+        Message second  = new Message(1, 3);
+        Message third   = new Message(2, 3);
+        Message fourth  = new Message(1, 4);
 
         buffer.addMessage(fourth);
         buffer.addMessage(third);
@@ -55,7 +55,7 @@ public class BufferTest {
     void testAddAcknowledgementSimple() {
         Buffer buffer = new Buffer(3);
 
-        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, 5);
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);
@@ -73,7 +73,7 @@ public class BufferTest {
     void testAddAcknowledgementMessageDoesNotExist() {
         Buffer buffer = new Buffer(3);
 
-        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, 5);
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addAcknowledgement(acknowledgement);
@@ -86,7 +86,7 @@ public class BufferTest {
     void testAddAcknowledgementTwice() {
         Buffer buffer = new Buffer(3);
 
-        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, 5);
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);
@@ -105,7 +105,7 @@ public class BufferTest {
     void testAddAcknowledgementLast() {
         Buffer buffer = new Buffer(3);
 
-        Message message = new Message(1, new Timestamp(new int[]{1, 2, 3}));
+        Message message = new Message(1, 5);
         Acknowledgement acknowledgement = new Acknowledgement(message);
 
         buffer.addMessage(message);
