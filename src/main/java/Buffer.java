@@ -34,40 +34,55 @@ public class Buffer {
      */
     public void addAcknowledgement(Acknowledgement a) {
         Message message = a.getMessage();
-        // if first ack of msg create entry in ackmap
-        if (!ackMap.containsKey(message))
-            ackMap.put(message, 1);
-        // else update number of acks received
-        else {
-            ackMap.replace(message, ackMap.get(message) + 1);
-            if (ackMap.get(message) != numProc)
-                return;
+        // lock object when processing acknowledgment
+        synchronized (this) {
+            // if first ack of msg create entry in ackmap
+            if (!ackMap.containsKey(message))
+                ackMap.put(message, 1);
+                // else update number of acks received
+            else {
+                ackMap.replace(message, ackMap.get(message) + 1);
+                if (ackMap.get(message) != numProc)
+                    return;
 
-            // if all acks for message at head of queue are received then deliver
-            while (!messageQueue.isEmpty()) {
-                Message head = messageQueue.get(0);
-                if (ackMap.containsKey(head) && ackMap.get(head) == numProc) {
-                    logger.warn(String.format("deliver msg %s", head.toString()));
-                    messageQueue.remove(head);
-                    ackMap.remove(head);
-                    deliveredMessages.add(head);
-                }
-                else {
-                    break;
-                }
+                // if all acks for message at head of queue are received then deliver
+                deliverMessages();
             }
         }
     }
 
     /**
+     * check if head of message queue is fully ack'd
+     * if so deliver it and repeat
+     * if not stop
+     */
+    private void deliverMessages() {
+        while (!messageQueue.isEmpty()) {
+            Message head = messageQueue.get(0);
+            if (ackMap.containsKey(head) && ackMap.get(head) == numProc) {
+                logger.warn(String.format("deliver msg %s", head.toString()));
+                messageQueue.remove(head);
+                ackMap.remove(head);
+                deliveredMessages.add(head);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+
+    /**
      * add message to queue and resort to ensure correct order
      * @param m
      */
-    public synchronized void addMessage(Message m) {
+    public void addMessage(Message m) {
         logger.info(String.format("reveive msg %s", m.toString()));
-        messageQueue.add(m);
-        messageQueue.sort(Message::compareTo);
-//        ackMap.put(m, 0);
+        // lock object when adding message to queue
+        synchronized (this) {
+            messageQueue.add(m);
+            messageQueue.sort(Message::compareTo);
+        }
         sendAcknowledgement(m);
     }
 
