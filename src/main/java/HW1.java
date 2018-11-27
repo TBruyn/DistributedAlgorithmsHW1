@@ -62,6 +62,12 @@ public class HW1 implements HW1Interface{
      * the client-side work of it
      */
     public void startProcess() {
+        // sleep to ensure that all processes are bound
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Thread(new MessageGenerator(numProcesses, pid, clock)).start();
     }
 

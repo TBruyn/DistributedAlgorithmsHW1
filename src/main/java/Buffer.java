@@ -47,7 +47,7 @@ public class Buffer {
             while (!messageQueue.isEmpty()) {
                 Message head = messageQueue.get(0);
                 if (ackMap.containsKey(head) && ackMap.get(head) == numProc) {
-                    logger.info(String.format("deliver msg %s", head.toString()));
+                    logger.warn(String.format("deliver msg %s", head.toString()));
                     messageQueue.remove(head);
                     ackMap.remove(head);
                     deliveredMessages.add(head);
@@ -63,7 +63,7 @@ public class Buffer {
      * add message to queue and resort to ensure correct order
      * @param m
      */
-    public void addMessage(Message m) {
+    public synchronized void addMessage(Message m) {
         logger.info(String.format("reveive msg %s", m.toString()));
         messageQueue.add(m);
         messageQueue.sort(Message::compareTo);
