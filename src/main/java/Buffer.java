@@ -16,12 +16,14 @@ public class Buffer {
     private int numProc;
     private int ownerPid;
     private Logger logger;
+    private List<Message> deliveredMessages;
 
     public Buffer(int pid, int numProcesses) {
         ownerPid = pid;
         this.numProc    = numProcesses;
         messageQueue    = new ArrayList<>();
         ackMap          = new HashMap<>();
+        deliveredMessages = new ArrayList<>();
         logger = LogManager.getLogger(String.format("P%d", pid));
     }
 
@@ -38,14 +40,17 @@ public class Buffer {
         // else update number of acks received
         else {
             ackMap.replace(message, ackMap.get(message) + 1);
+            if (ackMap.get(message) != numProc)
+                return;
 
             // if all acks for message at head of queue are received then deliver
             while (!messageQueue.isEmpty()) {
                 Message head = messageQueue.get(0);
-                if (ackMap.get(head) == numProc) {
+                if (ackMap.containsKey(head) && ackMap.get(head) == numProc) {
                     logger.info(String.format("deliver msg %s", head.toString()));
-                    messageQueue.remove(message);
-                    ackMap.remove(message);
+                    messageQueue.remove(head);
+                    ackMap.remove(head);
+                    deliveredMessages.add(head);
                 }
                 else {
                     break;
@@ -101,5 +106,9 @@ public class Buffer {
 
     public int getNumberOfProcesses() {
         return numProc;
+    }
+
+    public List<Message> getDeliveredMessages() {
+        return deliveredMessages;
     }
 }

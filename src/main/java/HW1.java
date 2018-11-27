@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+import java.util.Random;
 
 public class HW1 implements HW1Interface{
 
@@ -29,13 +31,30 @@ public class HW1 implements HW1Interface{
     @Override
     public void addMessage(Message m) {
 //        System.out.println(String.format("p%d receives %s", pid, m.toString()));
+        sleepy();
         clock.receiveUpdate(m);
         messageBuffer.addMessage(m);
     }
 
     @Override
     public void addAck(Acknowledgement a) {
+        sleepy();
         messageBuffer.addAcknowledgement(a);
+    }
+
+    private void sleepy() {
+        Random random = new Random();
+        int rand = random.nextInt(5);
+        try {
+            Thread.sleep(rand * 500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Message> deliveredMessages() {
+        return messageBuffer.getDeliveredMessages();
     }
 
     /**

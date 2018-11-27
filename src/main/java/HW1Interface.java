@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public interface HW1Interface extends Remote {
     /**
@@ -15,4 +16,6 @@ public interface HW1Interface extends Remote {
      * @throws RemoteException
      */
     void addAck(Acknowledgement a) throws RemoteException;
+
+    List<Message> deliveredMessages() throws RemoteException;
 }

@@ -35,7 +35,7 @@ public class Main {
         }
 
         System.out.println("launched all processes");
-        while (true) {}
+//        while (true) {}
     }
 
 
