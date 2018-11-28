@@ -1,5 +1,4 @@
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+package ex1;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

@@ -1,3 +1,6 @@
+import ex1.HW1;
+import ex1.HW1Interface;
+import ex1.Message;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

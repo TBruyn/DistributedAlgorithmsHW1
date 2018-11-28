@@ -10,7 +10,7 @@ public class BufferTest {
 
 //    @Test
 //    void testGet() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
 //        assertEquals(3, buffer.getNumberOfProcesses());
 //        assertTrue(buffer.getMessageQueue().isEmpty());
@@ -19,9 +19,9 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddMessage() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message message = new Message(1, 5);
+//        ex1.Message message = new ex1.Message(1, 5);
 //
 //        buffer.addMessage(message);
 //
@@ -31,19 +31,19 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddMessageSort() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message first   = new Message(1, 1);
-//        Message second  = new Message(1, 3);
-//        Message third   = new Message(2, 3);
-//        Message fourth  = new Message(1, 4);
+//        ex1.Message first   = new ex1.Message(1, 1);
+//        ex1.Message second  = new ex1.Message(1, 3);
+//        ex1.Message third   = new ex1.Message(2, 3);
+//        ex1.Message fourth  = new ex1.Message(1, 4);
 //
 //        buffer.addMessage(fourth);
 //        buffer.addMessage(third);
 //        buffer.addMessage(first);
 //        buffer.addMessage(second);
 //
-//        List<Message> messageQueue = buffer.getMessageQueue();
+//        List<ex1.Message> messageQueue = buffer.getMessageQueue();
 //
 //        assertEquals(first,     messageQueue.get(0));
 //        assertEquals(second,    messageQueue.get(1));
@@ -53,10 +53,10 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddAcknowledgementSimple() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message message = new Message(1, 5);
-//        Acknowledgement acknowledgement = new Acknowledgement(message);
+//        ex1.Message message = new ex1.Message(1, 5);
+//        ex1.Acknowledgement acknowledgement = new ex1.Acknowledgement(message);
 //
 //        buffer.addMessage(message);
 //
@@ -71,10 +71,10 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddAcknowledgementMessageDoesNotExist() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message message = new Message(1, 5);
-//        Acknowledgement acknowledgement = new Acknowledgement(message);
+//        ex1.Message message = new ex1.Message(1, 5);
+//        ex1.Acknowledgement acknowledgement = new ex1.Acknowledgement(message);
 //
 //        buffer.addAcknowledgement(acknowledgement);
 //
@@ -84,10 +84,10 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddAcknowledgementTwice() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message message = new Message(1, 5);
-//        Acknowledgement acknowledgement = new Acknowledgement(message);
+//        ex1.Message message = new ex1.Message(1, 5);
+//        ex1.Acknowledgement acknowledgement = new ex1.Acknowledgement(message);
 //
 //        buffer.addMessage(message);
 //
@@ -103,10 +103,10 @@ public class BufferTest {
 //
 //    @Test
 //    void testAddAcknowledgementLast() {
-//        Buffer buffer = new Buffer(3);
+//        ex1.Buffer buffer = new ex1.Buffer(3);
 //
-//        Message message = new Message(1, 5);
-//        Acknowledgement acknowledgement = new Acknowledgement(message);
+//        ex1.Message message = new ex1.Message(1, 5);
+//        ex1.Acknowledgement acknowledgement = new ex1.Acknowledgement(message);
 //
 //        buffer.addMessage(message);
 //

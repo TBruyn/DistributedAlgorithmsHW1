@@ -1,3 +1,5 @@
+import ex1.Acknowledgement;
+import ex1.Message;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,5 @@
-import java.net.URLClassLoader;
+package ex1;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -88,7 +89,7 @@ public class Main {
 //        String classpath = "/Users/jannes/University2/DistributedAlgorithms/da-homework/src/main/java/dir/";
         String classpath = System.getProperty("java.class.path");
         String command = "java -cp " + classpath;
-//        ProcessBuilder pb = new ProcessBuilder(command, HW1.class.getName(), String.valueOf(pid), String.valueOf(n));
+//        ProcessBuilder pb = new ProcessBuilder(command, ex1.HW1.class.getName(), String.valueOf(pid), String.valueOf(n));
         ProcessBuilder pb = new ProcessBuilder("java", HW1.class.getName(), String.valueOf(pid), String.valueOf(n));
         Process process = pb.inheritIO().start();
         process.waitFor();

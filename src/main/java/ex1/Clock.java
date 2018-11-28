@@ -1,3 +1,5 @@
+package ex1;
+
 public class Clock {
 
     /** access must be synchronized */
