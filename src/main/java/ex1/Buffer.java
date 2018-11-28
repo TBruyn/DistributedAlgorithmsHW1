@@ -75,7 +75,6 @@ public class Buffer {
         }
     }
 
-
     /**
      * add message to queue and resort to ensure correct order
      * @param m
@@ -87,58 +86,6 @@ public class Buffer {
             messageQueue.add(m);
             messageQueue.sort(Message::compareTo);
         }
-        sleepy(50);
-        sendAcknowledgement(m);
-    }
-
-    /**
-     * broadcast ack for message m to all processes (including owner process)
-     * @param m
-     */
-    private void sendAcknowledgement(Message m) {
-        Registry registry;
-        try {
-            registry = LocateRegistry.getRegistry();
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return;
-        }
-        for (int i = 0; i < numProc; i++) {
-            try {
-                // lookup process by its id and send ack
-                HW1Interface process = (HW1Interface) registry.lookup(String.valueOf(i));
-//                System.out.println(String.format("p%d sending msg to p%d", ownerPid, i));
-                process.addAck(new Acknowledgement(m));
-            } catch (RemoteException | NotBoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    private void sleepy() {
-        sleepy(500);
-    }
-
-    private void sleepy(int wait) {
-        Random random = new Random();
-        int rand = random.nextInt(5);
-        try {
-            Thread.sleep(rand * wait);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Message> getMessageQueue() {
-        return messageQueue;
-    }
-
-    public HashMap<Message, Integer> getAcknowledgementMap() {
-        return ackMap;
-    }
-
-    public int getNumberOfProcesses() {
-        return numProc;
     }
 
     public List<Message> getDeliveredMessages() {
