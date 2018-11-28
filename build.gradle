@@ -1,4 +1,5 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
     id 'java'
 }
 
@@ -12,6 +13,20 @@ repositories {
 
 test {
     useJUnitPlatform()
+}
+
+// need to declare main entry point
+jar {
+    manifest {
+        attributes 'Main-Class': 'rmitest.Main1'
+    }
+}
+
+// shadow plugin for creating fat jar
+shadowJar {
+    baseName = 'shadow'
+    classifier = null
+    version = null
 }
 
 dependencies {

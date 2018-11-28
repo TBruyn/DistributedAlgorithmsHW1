@@ -1,29 +1,30 @@
-package rmitest;
-
-import ex1.HW1;
-import ex1.HW1Interface;
+package ex1;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Main1 {
+public class MainRemote {
 
+    private static final String HOST_ADDRESS = "rmi://localhost:1099";
+    private static final String REMOTE_ADDRESS = "";
 
     /**
+     * class for demonstration on two computes
      * this should do the following:
-     * create registry (will fail for everyone but the first invokation)
-     * run all processes on different threads
-     * @param args number of processes, first id, last id (of processes on this host)
+     * 1. setup the rmi registry
+     * 2. run all processes on different threads
+     * @param args even number of processes, int (0: if first part, 1: if second part)
      */
     public static void main(String[] args) {
-        if (args.length != 3) {
+        if (args.length != 2) {
             System.out.println("wrong number args");
-            System.exit(1);
         }
+        int numberProcesses = Integer.parseInt(args[0]);
+        boolean firstHalf = false;
+        if (Integer.parseInt(args[1]) == 1)
+            firstHalf = true;
 
         /** create the registry */
         try {
@@ -32,22 +33,21 @@ public class Main1 {
             e.printStackTrace();
         }
 
-        int numberProcesses = Integer.parseInt(args[0]);
-        int firstP = Integer.parseInt(args[1]);
-        int lastP = Integer.parseInt(args[2]);
+        int first = 0;
+        int last = numberProcesses - 1;
 
-        List<Integer> localPs = new ArrayList<>();
-        List<Integer> remotePs = new ArrayList<>();
+        if (firstHalf)
+            last = numberProcesses / 2 - 1;
+        else
+            first = numberProcesses / 2;
 
-        for (int i = 0; i < numberProcesses; i++) {
-            if (i <= lastP && i>= firstP)
-                localPs.add(i);
-            else
-                remotePs.add(i);
-        }
-
-        for (int p: localPs) {
-            launchInThread(p, numberProcesses);
+        for (int i = first; i < last; i++) {
+            try {
+                launchInThread(i, numberProcesses);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("some exception occurred when launching processes");
+            }
         }
 
         System.out.println("launched all processes");
