@@ -10,6 +10,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Buffer {
 
@@ -86,6 +87,7 @@ public class Buffer {
             messageQueue.add(m);
             messageQueue.sort(Message::compareTo);
         }
+        sleepy(50);
         sendAcknowledgement(m);
     }
 
@@ -111,6 +113,19 @@ public class Buffer {
             } catch (RemoteException | NotBoundException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    private void sleepy() {
+        sleepy(500);
+    }
+
+    private void sleepy(int wait) {
+        Random random = new Random();
+        int rand = random.nextInt(5);
+        try {
+            Thread.sleep(rand * wait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

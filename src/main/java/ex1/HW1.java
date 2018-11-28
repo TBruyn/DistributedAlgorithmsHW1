@@ -30,14 +30,14 @@ public class HW1 implements HW1Interface{
     @Override
     public void addMessage(Message m) {
 //        System.out.println(String.format("p%d receives %s", pid, m.toString()));
-        sleepy();
+//        sleepy();
         clock.receiveUpdate(m);
         messageBuffer.addMessage(m);
     }
 
     @Override
     public void addAck(Acknowledgement a) {
-        sleepy();
+//        sleepy();
         messageBuffer.addAcknowledgement(a);
     }
 

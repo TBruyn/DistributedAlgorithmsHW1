@@ -34,17 +34,29 @@ public class MessageGenerator implements Runnable {
 
         // create timestamp based own owner process clock
         int timestamp = ownerClock.createUpdate();
-        logger.info(String.format("broadcasting %s", new Message(ownerPid, timestamp).toString()));
+        logger.info(String.format("broadcasting msg %s", new Message(ownerPid,
+                timestamp).toString()));
 
         for (int i = 0; i < numProcesses; i++) {
             try {
                 // lookup process by its id and send message
+                sleepy();
                 HW1Interface process = (HW1Interface) registry.lookup(String.valueOf(i));
 //                System.out.println(String.format("p%d sending msg to p%d", ownerPid, i));
                 process.addMessage(new Message(ownerPid, timestamp));
             } catch (RemoteException | NotBoundException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void sleepy() {
+        Random random = new Random();
+        int rand = random.nextInt(5);
+        try {
+            Thread.sleep(rand * 500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -62,4 +74,5 @@ public class MessageGenerator implements Runnable {
             broadcast();
         }
     }
+    
 }
