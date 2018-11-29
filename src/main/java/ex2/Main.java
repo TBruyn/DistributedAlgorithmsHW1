@@ -1,5 +1,8 @@
 package ex2;
 
+import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -27,7 +30,12 @@ public class Main {
             e.printStackTrace();
         }
 
-        String[] names = null;
+        // for remote demo names need to be read in from file/args
+        String[] names = new String[numberProcesses];
+        for (int i = 0; i < numberProcesses; i++) {
+            names[i] = String.format("rmi://localhost:1099/%d", i);
+        }
+
         for (int i = 0; i < numberProcesses; i++) {
             try {
                 launchInThread(i, numberProcesses, names);
@@ -38,7 +46,6 @@ public class Main {
         }
 
         System.out.println("launched all processes");
-//        while (true) {}
     }
 
 
@@ -56,10 +63,11 @@ public class Main {
                 // should be replaced by code that binds with full url name
 //                Registry registry = LocateRegistry.getRegistry();
 //                registry.rebind(String.valueOf(pid), stub);
+                Naming.bind(names[id], stub);
                 System.out.println(String.format("Process %s bound", String.valueOf(id)));
                 component.start();
 
-            } catch (RemoteException e) {
+            } catch (RemoteException | MalformedURLException | AlreadyBoundException e) {
                 e.printStackTrace();
             }
         }).start();
