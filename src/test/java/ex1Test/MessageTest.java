@@ -1,3 +1,5 @@
+package ex1Test;
+
 import ex1.Message;
 import org.junit.jupiter.api.Test;
 

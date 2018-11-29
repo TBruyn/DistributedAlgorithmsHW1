@@ -2,6 +2,9 @@ package ex2;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public interface ComponentInterface extends Remote {
 
@@ -18,4 +21,8 @@ public interface ComponentInterface extends Remote {
      * @param sender, message
      */
     void receive(int sender, int message) throws RemoteException;
+
+    List<Map<Integer, int[]>> getStateHistory() throws RemoteException;
+
+    List<Map<Integer, Queue<Integer>>> getChannelHistory() throws  RemoteException;
 }

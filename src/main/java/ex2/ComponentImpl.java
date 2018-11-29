@@ -35,6 +35,9 @@ public class ComponentImpl implements ComponentInterface {
 
     private Logger logger;
 
+    private List<Map<Integer, int[]>> stateHistory;
+    private List<Map<Integer,Queue<Integer>>> channelHistory;
+
     public ComponentImpl(int myId, int numberComponents, String[] names, boolean init) {
         id = myId;
         algoInitiator = init;
@@ -54,6 +57,9 @@ public class ComponentImpl implements ComponentInterface {
             }
         }
         logger = LogManager.getLogger(String.format("Comp%d", id));
+
+        stateHistory = new ArrayList<>();
+        channelHistory = new ArrayList<>();
     }
 
     @Override
@@ -93,6 +99,7 @@ public class ComponentImpl implements ComponentInterface {
                 logger.warn(String.format("- INCOMING FROM %d: %d", i, localState.get(i)[INCOMING]));
             }
         }
+        addStateToHistory();
     }
 
     private void recordChannelState(int sender) {
@@ -101,6 +108,37 @@ public class ComponentImpl implements ComponentInterface {
             builder.append(String.format(" %d", integer));
         }
         logger.warn(builder.toString());
+        addChannelStateToHistory();
+    }
+
+    private void addStateToHistory() {
+        if(stateHistory.size() < 10) {
+            Map<Integer, int[]> stateCopy = new HashMap<>();
+            for (Integer key : localState.keySet()) {
+                stateCopy.put(key, localState.get(key));
+            }
+            stateHistory.add(stateCopy);
+        }
+    }
+
+    private void addChannelStateToHistory() {
+        if(channelHistory.size() < 10) {
+            Map<Integer, Queue<Integer>> stateCopy = new HashMap<>();
+            for (Integer key : channelBuffers.keySet()) {
+                stateCopy.put(key, channelBuffers.get(key));
+            }
+            channelHistory.add(stateCopy);
+        }
+    }
+
+    @Override
+    public List<Map<Integer, int[]>> getStateHistory() {
+        return stateHistory;
+    }
+
+    @Override
+    public List<Map<Integer, Queue<Integer>>> getChannelHistory() {
+        return channelHistory;
     }
 
     /**
@@ -124,7 +162,7 @@ public class ComponentImpl implements ComponentInterface {
     /**
      * start the components main loop
      */
-    protected void start() {
+    public void start() {
         DelayUtil.initialTimeout();
         int round = 0;
         while (true) {
