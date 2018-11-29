@@ -36,13 +36,10 @@ public class Main {
             names[i] = String.format("rmi://localhost:1099/%d", i);
         }
 
-        for (int i = 0; i < numberProcesses; i++) {
-            try {
-                launchInThread(i, numberProcesses, names);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("some exception occurred when launching processes");
-            }
+        // let process with id 0 be the one who initiates the algorithm
+        launchInThread(0, numberProcesses, names, true);
+        for (int i = 1; i < numberProcesses; i++) {
+                launchInThread(i, numberProcesses, names, false);
         }
 
         System.out.println("launched all processes");
@@ -55,10 +52,10 @@ public class Main {
      * @param n
      * @param names
      */
-    private static void launchInThread(int id, int n, String[] names) {
+    private static void launchInThread(int id, int n, String[] names, boolean init) {
         new Thread(() -> {
             try {
-                ComponentImpl component = new ComponentImpl(id, n, names);
+                ComponentImpl component = new ComponentImpl(id, n, names, init);
                 ComponentInterface stub = (ComponentInterface) UnicastRemoteObject.exportObject(component, 0);
                 // should be replaced by code that binds with full url name
 //                Registry registry = LocateRegistry.getRegistry();

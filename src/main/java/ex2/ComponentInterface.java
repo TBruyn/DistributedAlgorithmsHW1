@@ -10,7 +10,7 @@ public interface ComponentInterface extends Remote {
      * all normal messages have value >= 0
      * the special marker message has value -1
      */
-    static int MARKER = -1;
+    int MARKER = -1;
 
     /**
      * this method should put the message at the end of the
