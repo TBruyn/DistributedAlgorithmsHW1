@@ -171,3 +171,7 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/java,linux,macos,gradle,intellij
 
 logs
+.idea/da-homework.iml
+.idea/encodings.xml
+.idea/vcs.xml
+.idea/misc.xml
