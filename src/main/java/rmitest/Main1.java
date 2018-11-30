@@ -10,8 +10,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this is the Main class for demoing exercise 1 on one host but different processes
+ */
 public class Main1 {
-
 
     /**
      * this should do the following:

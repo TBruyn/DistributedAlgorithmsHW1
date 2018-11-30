@@ -108,7 +108,7 @@ public class ComponentImpl implements ComponentInterface {
      * @param receiver id of other component
      * @param message -1 if marker
      */
-    protected void send(int receiver, int message) {
+    private void send(int receiver, int message) {
         // call receive on correct remote stub (get name from name array)
         try {
             ComponentInterface receiverComponent = (ComponentInterface) Naming.lookup(namesOfComponents[receiver]);
@@ -124,7 +124,7 @@ public class ComponentImpl implements ComponentInterface {
     /**
      * start the components main loop
      */
-    protected void start() {
+    public void start() {
         DelayUtil.initialTimeout();
         int round = 0;
         while (true) {
