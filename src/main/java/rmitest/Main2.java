@@ -5,10 +5,15 @@ import ex2.ComponentInterface;
 import ex2.ConfigReader;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+import java.rmi.server.RMISocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Main2 {
@@ -25,6 +30,40 @@ public class Main2 {
             System.exit(1);
         }
         String hostName = args[0];
+
+        // Create and install a security manager
+
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new RMISecurityManager());
+//        }
+
+
+        /** for timeouts - copies from stackoverflow
+         *
+         */
+        int timeoutMillis = 2000;
+        try {
+            RMISocketFactory.setSocketFactory(new RMISocketFactory()
+            {
+                public Socket createSocket(String host, int port )
+                        throws IOException
+                {
+                    Socket socket = new Socket();
+                    socket.setSoTimeout( timeoutMillis );
+                    socket.setSoLinger( false, 0 );
+                    socket.connect( new InetSocketAddress( host, port ), timeoutMillis );
+                    return socket;
+                }
+
+                public ServerSocket createServerSocket(int port )
+                        throws IOException
+                {
+                    return new ServerSocket( port );
+                }
+            } );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         /** create the registry */
