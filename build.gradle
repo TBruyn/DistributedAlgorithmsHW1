@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-version '1.0-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 1.8
 
@@ -22,11 +22,49 @@ jar {
     }
 }
 
-// shadow plugin for creating fat jar
-shadowJar {
-    baseName = 'shadow'
-    classifier = null
-    version = null
+// base task for creating fat jars of exercise 1 and 2 main
+task ex1jar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'rmitest.Main1'
+    }
+}
+
+task ex2jar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ex2.Main'
+    }
+}
+
+//// shadow plugin for creating fat jar
+//shadowJar {
+//    manifest {
+//        inheritFrom project.tasks.ex2jar.manifest
+//    }
+//    baseName = 'exercise2'
+//    classifier = null
+//    version = null
+//}
+
+// definition of tasks which will create fat jars 
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+task ex1FatJar (type: ShadowJar) {
+    manifest {
+        inheritFrom project.tasks.ex1jar.manifest
+    }
+    baseName = 'exercise1'
+    from sourceSets.main.output
+    configurations = [project.configurations.compile]
+}
+
+task ex2FatJar (type: ShadowJar) {
+    manifest {
+        inheritFrom project.tasks.ex2jar.manifest
+    }
+    baseName = 'exercise2'
+    from sourceSets.main.output
+    configurations = [project.configurations.compile]
 }
 
 dependencies {
