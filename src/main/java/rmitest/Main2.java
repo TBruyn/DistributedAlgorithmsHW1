@@ -33,9 +33,9 @@ public class Main2 {
 
         // Create and install a security manager
 
-//        if (System.getSecurityManager() == null) {
-//            System.setSecurityManager(new RMISecurityManager());
-//        }
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new RMISecurityManager());
+        }
 
 
         /** for timeouts - copies from stackoverflow
@@ -111,7 +111,7 @@ public class Main2 {
         new Thread(() -> {
             try {
                 ComponentImpl component = new ComponentImpl(id, n, names, init);
-                ComponentInterface stub = (ComponentInterface) UnicastRemoteObject.exportObject(component, 0);
+                ComponentInterface stub = (ComponentInterface) UnicastRemoteObject.exportObject(component, 1099);
                 Naming.bind(names[id], stub);
                 System.out.println(String.format("Component %s bound", String.valueOf(id)));
                 component.start();

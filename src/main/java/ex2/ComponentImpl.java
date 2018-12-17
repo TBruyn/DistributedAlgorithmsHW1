@@ -1,5 +1,6 @@
 package ex2;
 
+import ex1.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
