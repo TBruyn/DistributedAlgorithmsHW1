@@ -1,8 +1,9 @@
 package ex3;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Message {
+public class Message implements Serializable {
 
     public Message(int level, int id, int sender) {
         this.level = level;
