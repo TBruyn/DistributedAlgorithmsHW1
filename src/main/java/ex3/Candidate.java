@@ -21,7 +21,31 @@ public class Candidate {
     }
 
     public void start() {
-        // algo for candidate
+        for(int i = 0; i < numberComponents; i++) {
+            RMIUtil.ordinarySend(new Message(level, id, id), i);
+
+            while(true) {
+                if (msgBuffer.isEmpty()) continue;
+                Message msg = msgBuffer.remove();
+
+                if (msg.getId() == id && !killed) {
+                    level++;
+                    break;
+                } else {
+                    if (msg.compareTo(level, id) == '<') {
+                        continue;
+                    } else {
+                        RMIUtil.ordinarySend(msg, msg.getSender());
+                        killed = true;
+                        continue;
+                    }
+                }
+            }
+
+        }
+        if (!killed) {
+            //ELECTED
+        }
 
     }
 
