@@ -18,8 +18,10 @@ public class Main {
             System.out.println("wrong number args");
             System.exit(1);
         }
-        int numberProcesses = Integer.parseInt(args[0]);
+        setup(Integer.parseInt(args[0]));
+    }
 
+    public static void setup(int numberComponents) {
         /** create the registry */
         try {
             java.rmi.registry.LocateRegistry.createRegistry(1099);
@@ -27,13 +29,12 @@ public class Main {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < numberProcesses; i++) {
-            launchInThread(i, numberProcesses);
+        for (int i = 0; i < numberComponents; i++) {
+            launchInThread(i, numberComponents);
         }
 
         System.out.println("launched all processes");
     }
-
 
     /**
      * launch component with id in new thread

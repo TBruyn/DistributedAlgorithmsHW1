@@ -23,6 +23,15 @@ public class RMIUtil {
         }
     }
 
+    public static void startCandidate(int id) {
+        try {
+            getComponent(id).startCandidate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(String.format("Could not start candidate %d", id));
+        }
+    }
+
     private static ComponentInterface getComponent(int id) throws Exception {
         Registry registry = LocateRegistry.getRegistry();
         return (ComponentInterface) registry.lookup(String.valueOf(id));

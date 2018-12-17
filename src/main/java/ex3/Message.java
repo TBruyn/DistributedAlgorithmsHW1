@@ -28,6 +28,14 @@ public class Message implements Serializable {
     }
 
     public char compareTo(int otherLevel, int otherOwnerId) {
-        return 'j';
+        if (level < otherLevel)
+            return '<';
+        if (level > otherLevel)
+            return '>';
+        if (id > otherOwnerId)
+            return '>';
+        if (id < otherOwnerId)
+            return '<';
+        return '=';
     }
 }
