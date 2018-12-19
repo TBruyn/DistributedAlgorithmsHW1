@@ -61,7 +61,7 @@ public class Candidate {
 
     public void terminate() {
         running = false;
-        //TODO manager logging max level
+        Manager.getInstance().logLevel(id, level);
     }
 
     @Override

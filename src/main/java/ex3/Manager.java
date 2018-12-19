@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Manager {
+
+    public static final String RECEIVE_CAPTURE_REQUEST = "rcr";
+    public static final String SEND_CAPTURE_CONFIRM = "rcc";
+    public static final String SEND_KILL_REQUEST = "rkr";
+    public static final String RECEIVE_KILL_CONFIRM = "rkc";
+
     private static Manager ourInstance = new Manager();
     private boolean[] terminated;
     private int winnerId;
@@ -14,13 +20,16 @@ public class Manager {
         return ourInstance;
     }
 
-    private List<Map<String, Integer>> data;
+    private List<Map<String, Integer>> messageData;
+
+    private Map<Integer, Integer> maxLevels;
 
     private Manager() {
     }
 
     public void init(int numberComponents) {
-        data = new ArrayList<>(numberComponents);
+        messageData = new ArrayList<>(numberComponents);
+        maxLevels = new HashMap<>();
         winnerId = -1;
         terminated = new boolean[numberComponents];
         for (int i = 0; i < numberComponents; i++) {
@@ -32,16 +41,14 @@ public class Manager {
             // send confirmation (number of captures)
             //// canditate
             // level reached
-            data.add(map);
+            messageData.add(map);
+
+
         }
     }
 
-    public void logMessage(int ordinaryId, Message msg, int recipient) {
-
-    }
-
-    public void logLevel(int candidateId, int level) {
-
+    public synchronized void logLevel(int candidateId, int level) {
+        maxLevels.put(candidateId, level);
     }
 
     public void announceTermination(int componentId) {
@@ -61,5 +68,13 @@ public class Manager {
 
     public int getWinnerId() {
         return winnerId;
+    }
+
+    public List<Map<String, Integer>> getMessageData() {
+        return messageData;
+    }
+
+    public Map<Integer, Integer> getMaxLevels() {
+        return maxLevels;
     }
 }
