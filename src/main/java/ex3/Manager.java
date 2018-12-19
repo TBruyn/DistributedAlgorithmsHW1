@@ -34,16 +34,11 @@ public class Manager {
         terminated = new boolean[numberComponents];
         for (int i = 0; i < numberComponents; i++) {
             Map<String, Integer> map = new HashMap<>();
-            //// ordinary
-            // capture receives
-            // killed receives
-            // send kill
-            // send confirmation (number of captures)
-            //// canditate
-            // level reached
+            map.put(RECEIVE_CAPTURE_REQUEST, 0);
+            map.put(SEND_CAPTURE_CONFIRM, 0);
+            map.put(RECEIVE_KILL_CONFIRM, 0);
+            map.put(SEND_KILL_REQUEST, 0);
             messageData.add(map);
-
-
         }
     }
 
