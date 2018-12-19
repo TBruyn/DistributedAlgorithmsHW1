@@ -48,6 +48,7 @@ public class Main {
         System.out.println(String.format("AAAnd the winner is: %d", Manager.getInstance().getWinnerId()));
     }
 
+
     /**
      * launch component with id in new thread
      * @param id

@@ -20,16 +20,12 @@ public class ComponentImpl implements ComponentInterface {
 
     @Override
     public void callOrdinary(Message msg) throws RemoteException {
-        synchronized (this) {
-            ordinary.receive(msg);
-        }
+        ordinary.receive(msg);
     }
 
     @Override
     public void callCandidate(Message msg) throws RemoteException {
-        synchronized (this) {
-            candidate.receive(msg);
-        }
+        candidate.receive(msg);
     }
 
     @Override
@@ -52,11 +48,12 @@ public class ComponentImpl implements ComponentInterface {
 
     public void start() {
         System.out.println(String.format("Component %d started", id));
-        while (true) {
+        while (running) {
             DelayUtil.initialTimeout();
             if (candidate != null) {
                 System.out.println(String.format("Component %d starts candidate", id));
                 candidate.start();
+                return;
             }
         }
     }

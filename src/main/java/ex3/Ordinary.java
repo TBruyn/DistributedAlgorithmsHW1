@@ -13,7 +13,7 @@ public class Ordinary {
         level = ownerId = potentialFather = father = -1;
     }
 
-    public void receive(Message msg) {
+    public synchronized void receive(Message msg) {
         System.out.println(String.format("Ordinary %d received %s", processId, msg.toString()));
         switch (msg.compareTo(level, ownerId)) {
             case '<':

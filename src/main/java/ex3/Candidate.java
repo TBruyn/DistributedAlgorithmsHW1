@@ -55,8 +55,8 @@ public class Candidate {
 
     }
 
-    public void receive(Message msg) {
-        msgBuffer.add(msg);
+    public synchronized void receive(Message msg) {
+            msgBuffer.add(msg);
     }
 
     public void terminate() {
