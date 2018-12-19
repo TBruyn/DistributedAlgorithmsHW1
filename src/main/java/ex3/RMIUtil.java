@@ -37,4 +37,9 @@ public class RMIUtil {
         return (ComponentInterface) registry.lookup(String.valueOf(id));
     }
 
+    private static void terminateAll(int numberOfComponents) {
+        //TODO kill everybody
+    }
+
+
 }

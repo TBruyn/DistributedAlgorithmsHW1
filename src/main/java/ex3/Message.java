@@ -27,6 +27,10 @@ public class Message implements Serializable {
         return sender;
     }
 
+    public Message forward(int newSender) {
+        return new Message(level, id, newSender);
+    }
+
     public char compareTo(int otherLevel, int otherOwnerId) {
         if (level < otherLevel)
             return '<';

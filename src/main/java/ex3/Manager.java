@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class Manager {
     private static Manager ourInstance = new Manager();
+    private boolean[] terminated;
+    private int winnerId;
 
     public static Manager getInstance() {
         return ourInstance;
@@ -19,6 +21,8 @@ public class Manager {
 
     public void init(int numberComponents) {
         data = new ArrayList<>(numberComponents);
+        winnerId = -1;
+        terminated = new boolean[numberComponents];
         for (int i = 0; i < numberComponents; i++) {
             Map<String, Integer> map = new HashMap<>();
             //// ordinary
@@ -32,7 +36,26 @@ public class Manager {
         }
     }
 
-    public void announceElection(int id) {
+    public void logMessage(int ordinaryId, Message msg, int recipient) {
 
+    }
+
+    public void logLevel(int candidateId, int level) {
+
+    }
+
+    public void announceTermination(int componentId) {
+        terminated[componentId] = true;
+    }
+
+    public void announceElection(int id) {
+        winnerId = id;
+    }
+
+    public boolean allTerminated() {
+        for (boolean b : terminated) {
+            if (!b) return false;
+        }
+        return true;
     }
 }

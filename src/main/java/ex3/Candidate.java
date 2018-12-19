@@ -10,6 +10,7 @@ public class Candidate {
     private int id;
     private boolean killed;
     private Queue<Message> msgBuffer;
+    private boolean running;
 
 
     public Candidate(int numberComponents, int id) {
@@ -18,13 +19,16 @@ public class Candidate {
         level = 0;
         killed = false;
         msgBuffer = new LinkedList<>();
+        running = true;
     }
 
     public void start() {
         for(int i = 0; i < numberComponents; i++) {
+            if (!running) return;
             RMIUtil.ordinarySend(new Message(level, id, id), i);
 
             while(true) {
+                if (!running) return;
                 if (msgBuffer.isEmpty()) continue;
                 Message msg = msgBuffer.remove();
 
@@ -35,7 +39,7 @@ public class Candidate {
                     if (msg.compareTo(level, id) == '<') {
                         continue;
                     } else {
-                        RMIUtil.ordinarySend(msg, msg.getSender());
+                        RMIUtil.ordinarySend(msg.forward(id), msg.getSender());
                         killed = true;
                         continue;
                     }
@@ -44,14 +48,17 @@ public class Candidate {
 
         }
         if (!killed) {
-            //ELECTED
+            Manager.getInstance().announceElection(id);
         }
 
     }
 
     public void receive(Message msg) {
-        synchronized (this) {
-            msgBuffer.add(msg);
-        }
+        msgBuffer.add(msg);
+    }
+
+    public void terminate() {
+        running = false;
+        //TODO manager logging max level
     }
 }

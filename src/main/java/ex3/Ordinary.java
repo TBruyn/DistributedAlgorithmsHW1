@@ -2,12 +2,14 @@ package ex3;
 
 public class Ordinary {
 
+    private int processId;
     private int level;
     private int ownerId;
     private int potentialFather;
     private int father;
 
-    public Ordinary() {
+    public Ordinary(int id) {
+        processId = id;
         level = ownerId = potentialFather = father = -1;
     }
 
@@ -20,11 +22,11 @@ public class Ordinary {
                 level = msg.getLevel();
                 ownerId = msg.getId();
                 if (father == -1) father = potentialFather;
-                RMIUtil.candidateSend(msg, father);
+                RMIUtil.candidateSend(msg.forward(processId), father);
                 break;
             case '=':
                 father = potentialFather;
-                RMIUtil.candidateSend(msg, father);
+                RMIUtil.candidateSend(msg.forward(processId), father);
                 break;
         }
 

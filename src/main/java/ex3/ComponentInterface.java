@@ -10,4 +10,6 @@ public interface ComponentInterface extends Remote {
     void callCandidate(Message msg) throws RemoteException;
 
     void startCandidate() throws RemoteException;
+
+    void terminate() throws RemoteException;
 }
