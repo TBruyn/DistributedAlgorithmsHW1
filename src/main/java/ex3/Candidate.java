@@ -48,7 +48,9 @@ public class Candidate {
 
         }
         if (!killed) {
+            // report winner of election and terminate algorithm
             Manager.getInstance().announceElection(id);
+            RMIUtil.terminateAll(numberComponents);
         }
 
     }
@@ -60,5 +62,12 @@ public class Candidate {
     public void terminate() {
         running = false;
         //TODO manager logging max level
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id=" + id +
+                '}';
     }
 }

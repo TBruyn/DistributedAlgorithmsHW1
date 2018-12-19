@@ -42,4 +42,13 @@ public class Message implements Serializable {
             return '<';
         return '=';
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "level=" + level +
+                ", id=" + id +
+                ", sender=" + sender +
+                '}';
+    }
 }

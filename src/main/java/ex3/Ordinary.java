@@ -14,6 +14,7 @@ public class Ordinary {
     }
 
     public void receive(Message msg) {
+        System.out.println(String.format("Ordinary %d received %s", processId, msg.toString()));
         switch (msg.compareTo(level, ownerId)) {
             case '<':
                 break;

@@ -58,4 +58,8 @@ public class Manager {
         }
         return true;
     }
+
+    public int getWinnerId() {
+        return winnerId;
+    }
 }

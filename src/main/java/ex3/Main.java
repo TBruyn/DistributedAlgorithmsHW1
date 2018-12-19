@@ -22,6 +22,9 @@ public class Main {
     }
 
     public static void setup(int numberComponents) {
+        // initialize manager
+        Manager.getInstance().init(numberComponents);
+
         /** create the registry */
         try {
             java.rmi.registry.LocateRegistry.createRegistry(1099);
@@ -34,6 +37,15 @@ public class Main {
         }
 
         System.out.println("launched all processes");
+
+        // factor this out later
+        DelayUtil.initialTimeout();
+        RMIUtil.startCandidate(0);
+        while (!Manager.getInstance().allTerminated()) {
+            System.out.println("waiting for termination");
+            DelayUtil.initialTimeout();
+        }
+        System.out.println(String.format("AAAnd the winner is: %d", Manager.getInstance().getWinnerId()));
     }
 
     /**
