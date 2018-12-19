@@ -6,6 +6,7 @@ import java.rmi.registry.Registry;
 public class RMIUtil {
 
     public static void candidateSend(Message m, int receiver) {
+        DelayUtil.delay(50);
         try {
             getComponent(receiver).callCandidate(m);
         } catch (Exception e) {
@@ -15,6 +16,7 @@ public class RMIUtil {
     }
 
     public static void ordinarySend(Message m, int receiver) {
+        DelayUtil.delay(50);
         try {
             getComponent(receiver).callOrdinary(m);
         } catch (Exception e) {
