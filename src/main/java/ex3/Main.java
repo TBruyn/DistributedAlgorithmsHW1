@@ -39,14 +39,14 @@ public class Main {
         System.out.println("launched all processes");
 
         // factor this out later
-        DelayUtil.initialTimeout();
-        RMIUtil.startCandidate(0);
-        RMIUtil.startCandidate(1);
-        while (!Manager.getInstance().allTerminated()) {
-            System.out.println("waiting for termination");
-            DelayUtil.initialTimeout();
-        }
-        System.out.println(String.format("AAAnd the winner is: %d", Manager.getInstance().getWinnerId()));
+//        DelayUtil.initialTimeout();
+//        RMIUtil.startCandidate(0);
+//        RMIUtil.startCandidate(1);
+//        while (!Manager.getInstance().allTerminated()) {
+//            System.out.println("waiting for termination");
+//            DelayUtil.initialTimeout();
+//        }
+//        System.out.println(String.format("AAAnd the winner is: %d", Manager.getInstance().getWinnerId()));
     }
 
 
