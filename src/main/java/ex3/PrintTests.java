@@ -6,7 +6,10 @@ import java.util.Map;
 public class PrintTests {
 
     public static void main(String[] args){
-        runTest(5,5);
+        runTest(5,1);
+        runTest(5,3);
+        runTest(10,5);
+        runTest(15, 5);
     }
 
     public static void runTest(int numberOfComponents, int numberOfCandidates) {
@@ -26,6 +29,8 @@ public class PrintTests {
 
         printMaxLevels(maxLevels);
         printMessageData(messageData);
+
+        DumpTableUtil.dumpData(messageData, maxLevels);
     }
 
     private static void printMessageData(List<Map<String,Integer>> messageData) {

@@ -4,8 +4,12 @@
  \hline
  Candidate & level reached\\ [0.5ex]
  \hline\hline
- 0 & 5 \\ 
+ 0 & 2 \\ 
+ 1 & 4 \\ 
+ 2 & 3 \\ 
+ 3 & 25 \\ 
+ 4 & 0 \\ 
  \hline
  \end{tabular}
- \caption{5 components, 1 candidates: levels reached per candidate}
+ \caption{25 components, 5 candidates: levels reached per candidate}
 \end{table}
