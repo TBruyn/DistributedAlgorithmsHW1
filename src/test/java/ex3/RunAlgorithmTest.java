@@ -25,6 +25,7 @@ public class RunAlgorithmTest {
         }
         int winner = Manager.getInstance().getWinnerId();
         List<Map<String, Integer>> messageData = Manager.getInstance().getMessageData();
+        Map<Integer, Integer> maxLevels = Manager.getInstance().getMaxLevels();
 
         // for every ordinary process we expect 1 capture request/confirm and 0 kill request/confirm
 
