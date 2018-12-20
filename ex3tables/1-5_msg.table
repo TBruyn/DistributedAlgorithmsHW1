@@ -1,0 +1,18 @@
+\begin{table}
+\centering
+\begin{tabular}{||c|c c c c | c||}
+ \hline
+ Component & rec. Capture & sent Capture & sent Kill & rec. Kill & all \\ [0.5ex]
+ ID & Requests & Confirms & Requests & Confirms & \\ [0.5ex]
+ \hline\hline
+ 0 & 1 & 1 & 0 & 0 & 2\\ 
+ 1 & 1 & 1 & 0 & 0 & 2\\ 
+ 2 & 1 & 1 & 0 & 0 & 2\\ 
+ 3 & 1 & 1 & 0 & 0 & 2\\ 
+ 4 & 1 & 1 & 0 & 0 & 2\\ 
+ \hline
+ all & 5 & 5 & 0 & 0 & 10\\ 
+ \hline
+ \end{tabular}
+ \caption{5 components, 1 candidates: kill/capture requests and confirms}
+\end{table}

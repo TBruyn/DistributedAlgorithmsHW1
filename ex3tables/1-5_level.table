@@ -1,0 +1,11 @@
+\begin{table}
+\centering
+\begin{tabular}{||c|c||}
+ \hline
+ Candidate & level reached\\ [0.5ex]
+ \hline\hline
+ 2 & 5 \\ 
+ \hline
+ \end{tabular}
+ \caption{5 components, 1 candidates: levels reached per candidate}
+\end{table}
