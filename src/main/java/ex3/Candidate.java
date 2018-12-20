@@ -1,7 +1,6 @@
 package ex3;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Candidate {
 
@@ -23,22 +22,33 @@ public class Candidate {
     }
 
     public void start() {
+        List<Integer> uncapturedComponents = new ArrayList<>(numberComponents);
         for(int i = 0; i < numberComponents; i++) {
+            uncapturedComponents.add(i,i);
+        }
+        Collections.shuffle(uncapturedComponents);
+        System.out.println(id + ": " + uncapturedComponents.toString());
+
+        for(int i : uncapturedComponents) {
             if (!running) return;
             RMIUtil.ordinarySend(new Message(level, id, id), i);
 
             while(true) {
+                DelayUtil.delay(10);
                 if (!running) return;
                 if (msgBuffer.isEmpty()) continue;
                 Message msg = msgBuffer.remove();
 
                 if (msg.getId() == id && !killed) {
                     level++;
+                    System.out.println("Process " + id + " has level " + level);
                     break;
                 } else {
                     if (msg.compareTo(level, id) == '<') {
+                        System.out.println("Process " + id + " discards " + msg.toString() + " because it is" + " lower than " + level + ", " + id);
                         continue;
                     } else {
+                        System.out.println("Process " + id + " is killed");
                         RMIUtil.ordinarySend(msg.forward(id), msg.getSender());
                         killed = true;
                         continue;
@@ -49,6 +59,7 @@ public class Candidate {
         }
         if (!killed) {
             // report winner of election and terminate algorithm
+            System.out.println("Process " + id + " wins");
             Manager.getInstance().announceElection(id);
             RMIUtil.terminateAll(numberComponents);
         }
